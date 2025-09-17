@@ -1,8 +1,8 @@
 /* Modern Timeline Card Styles */
 .timeline-card {
-    width: 300px;
-    height: 420px;
-    border-radius: 18px;
+    width: 260px;
+    height: 260px;
+    border-radius: 12px;
     background: rgba(255,255,255,0.08);
     margin: 0 1.5rem;
     display: inline-block;
@@ -94,14 +94,16 @@ body {
 /* Header styles with gradient background */
 header {
     background: linear-gradient(90deg, #00C7FD 0%, #0068B5 50%, #000F4C 100%);
-    padding: 4rem 1rem;
+    padding: 4vw 2vw 2vw 2vw;
     text-align: center;
-    min-height: 70vh;
+    min-height: 40vh;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 header div {
@@ -111,32 +113,30 @@ header div {
 
 /* Style for the Intel logo */
 .logo {
-    /* Set size for the logo */
-    width: 150px;
+    width: min(22vw, 160px);
     height: auto;
-    
-    /* Center the logo */
     display: block;
-    margin: 0 auto 2rem;
-    
-    /* Use SVG's natural colors */
+    margin: 0 auto 2vw auto;
+    max-width: 100%;
 }
 
-/* Timeline section */
+/* Responsive Timeline Section */
 section {
-    width: 100%;
-    margin: -100px auto 0;
-    padding: 2rem;
+    width: 100vw;
+    margin: -6vw auto 0 auto;
+    padding: 2vw 2vw 2vw 2vw;
     position: relative;
     z-index: 1;
-    overflow-x: scroll;
+    overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
     -ms-overflow-style: none;  /* Hide scrollbar IE and Edge */
     scrollbar-width: none;     /* Hide scrollbar Firefox */
     background: #fff;
     box-shadow: 0 -8px 32px rgba(0,0,0,0.04);
-    border-radius: 24px 24px 0 0;
+    border-radius: 0;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 /* Hide scrollbar for Chrome/Safari/Opera */
@@ -147,9 +147,9 @@ section::-webkit-scrollbar {
 /* Timeline cards */
 section > div {
     display: inline-flex;
-    width: 300px;
-    height: 450px;  /* Increased height for better content spacing */
-    margin-right: 2rem;
+    width: min(90vw, 260px);
+    height: min(90vw, 260px);
+    margin-right: 2vw;
     vertical-align: top;
     white-space: normal;
     background: rgba(255, 255, 255, 0.1);
@@ -163,6 +163,8 @@ section > div {
     position: relative;
     overflow: hidden;
     flex-direction: column;
+    min-width: 180px;
+    min-height: 180px;
 }
 
 /* Card content container */
@@ -335,10 +337,10 @@ body > p::after {
 h1 {
     color: white;
     text-transform: uppercase;
-    font-size: 3.5rem;
+    font-size: clamp(2rem, 6vw, 3.5rem);
     font-weight: 800;
     letter-spacing: 4px;
-    margin: 2rem 0;
+    margin: 2vw 0;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
 }
@@ -346,12 +348,44 @@ h1 {
 /* Subheading style */
 header p {
     color: rgba(255, 255, 255, 0.95);
-    font-size: 1.4rem;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
     line-height: 1.8;
-    margin: 2rem 0;
+    margin: 2vw 0;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
     font-weight: 300;
     letter-spacing: 0.5px;
+}
+@media (max-width: 600px) {
+    header {
+        padding: 6vw 2vw 3vw 2vw;
+        min-height: 30vh;
+    }
+    .logo {
+        width: min(40vw, 120px);
+        margin-bottom: 4vw;
+    }
+    h1 {
+        font-size: clamp(1.2rem, 8vw, 2.2rem);
+        margin: 3vw 0 2vw 0;
+    }
+    header p {
+        font-size: clamp(0.9rem, 3vw, 1.1rem);
+        margin: 2vw 0;
+    }
+  section {
+    padding: 4vw 1vw 4vw 1vw;
+    border-radius: 5vw 5vw 0 0;
+  }
+  section > div {
+    width: 90vw;
+    height: 90vw;
+    min-width: 140px;
+    min-height: 140px;
+    margin-right: 3vw;
+  }
+  .card-image {
+    height: 28vw;
+  }
 }

@@ -1,1 +1,11 @@
-/* Add your CSS here */
+/* Style for the Intel logo */
+.logo {
+    /* Set a reasonable size for the logo */
+    width: 120px;
+    height: auto;
+    
+    /* Center the logo */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

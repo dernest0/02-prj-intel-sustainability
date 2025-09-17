@@ -1,3 +1,17 @@
+/* Timeline prompt centered between header and timeline */
+.timeline-prompt {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #111;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 2rem 0 2rem 0;
+    text-align: center;
+    z-index: 2;
+}
 /* Global styles */
 body {
     margin: 0;
@@ -49,6 +63,9 @@ section {
     white-space: nowrap;
     -ms-overflow-style: none;  /* Hide scrollbar IE and Edge */
     scrollbar-width: none;     /* Hide scrollbar Firefox */
+    background: #fff;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.04);
+    border-radius: 24px 24px 0 0;
 }
 
 /* Hide scrollbar for Chrome/Safari/Opera */
@@ -58,9 +75,9 @@ section::-webkit-scrollbar {
 
 /* Timeline cards */
 section > div {
-    display: inline-block;
+    display: inline-flex;
     width: 300px;
-    height: 400px;
+    height: 450px;  /* Increased height for better content spacing */
     margin-right: 2rem;
     vertical-align: top;
     white-space: normal;
@@ -74,6 +91,18 @@ section > div {
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    flex-direction: column;
+}
+
+/* Card content container */
+section > div > div.content {
+    position: relative;
+    padding: 2rem 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.5rem;
 }
 
 /* Card image */
@@ -81,13 +110,9 @@ section > div img {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: 12px 12px 0 0;
-}
-
-/* Card content container */
-section > div > div {
-    position: relative;
-    padding: 1.5rem;
+    border-radius: 0 0 12px 12px;
+    margin-top: auto;
+    display: block;
 }
 
 /* Description overlay */
@@ -102,56 +127,98 @@ section > div .description {
     opacity: 0;
     transition: all 0.4s ease;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     padding: 2rem;
+    overflow-y: auto;
+    /* Hide scrollbar for Chrome/Safari/Opera */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 section > div:hover .description {
     opacity: 1;
 }
 
-section > div:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    border-color: rgba(255, 255, 255, 0.3);
+/* Description text container */
+section > div .description p {
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: white;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-wrap: break-word;
 }
-
-/* Add a subtle glow effect on hover */
-section > div:hover::before {
-    content: '';
+/* Description overlay */
+section > div .description {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #00C7FD, transparent);
-    animation: glow 2s linear infinite;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 199, 253, 0.95);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 1.5em;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
 }
 
-@keyframes glow {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+section > div:hover .description {
+    opacity: 1;
+    visibility: visible;
 }
 
-/* Timeline card typography */
-section h2 {
-    font-size: 2.5rem;
+/* Description text container */
+section > div .description p {
+    width: 100%;
+    height: auto;
     margin: 0;
-    color: #00C7FD;
-    font-weight: 800;
-    line-height: 1;
-}
-
-section h3 {
-    font-size: 1.4rem;
-    margin: 0.5rem 0 0;
+    padding: 0.5em;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    line-height: 1.6;
     color: white;
-    font-weight: 600;
+    text-align: left;
+    overflow-y: auto;
+    max-height: 100%;
+    
+    /* Ensure text stays visible during scale */
+    transform-origin: left top;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    
+    /* Customize scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
 
-section p {
-    font-size: 1rem;
+/* Custom scrollbar for Webkit browsers */
+section > div .description p::-webkit-scrollbar {
+    width: 4px;
+}
+
+section > div .description p::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+section > div .description p::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
     line-height: 1.6;
     color: white;
     margin: 0;
@@ -161,12 +228,16 @@ section p {
 /* Footer text */
 body > p {
     text-align: center;
-    color: rgba(255, 255, 255, 0.7);
-    padding: 2rem;
-    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 2rem 0 1rem 0;
+    font-size: 1.1rem;
     letter-spacing: 1px;
     position: relative;
-    margin-top: 2rem;
+    margin: 2rem auto 0 auto;
+    width: 100%;
+    max-width: 100vw;
+    display: block;
+    font-weight: 500;
 }
 
 /* Scroll indicators */

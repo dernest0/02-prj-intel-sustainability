@@ -1,3 +1,15 @@
+/* Make card 7 image fill the area like the rest */
+.card-image-large {
+    object-fit: contain;
+    width: 100%;
+    height: calc(var(--card-w) * 0.55);
+    max-height: calc(var(--card-w) * 0.55);
+    background: #f5f7fb;
+    border-radius: 0;
+    box-shadow: 0 2px 8px rgba(0,199,253,0.06);
+    margin: 0.5rem auto 0 auto;
+    display: block;
+}
 /* Thin, centered divider below the main heading */
 .header-divider {
     border: none;
@@ -8,13 +20,18 @@
     border-radius: 1px;
     opacity: 0.85;
 }
+
+:root {
+    --card-w: 320px; /* increased card width so year/title/image fit comfortably */
+    --card-gap: 1.5rem; /* slightly smaller gap to fit 4 cards */
+}
 /* Modern Timeline Card Styles */
 .timeline-card {
-    width: 260px;
-    height: 260px;
+    width: var(--card-w);
+    height: var(--card-w);
     border-radius: 0;
     background: rgba(255,255,255,0.08);
-    margin: 0 1.5rem;
+    margin: 0; /* rely on .timeline-track gap for spacing */
     display: inline-block;
     position: relative;
     overflow: hidden;
@@ -25,38 +42,45 @@
     transform: translateY(-8px) scale(1.03);
 }
 .card-content {
-    padding: 1.5rem 1rem 0.5rem 1rem;
+    padding: 0.5rem 0.6rem 0.5rem 0.6rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* left-align year and title */
+    box-sizing: border-box;
 }
 /* Year above image, color #AEEFFF */
 .card-year {
-    font-size: 2rem;
-    font-weight: bold;
+    font-size: 1.4rem;
+    font-weight: 700;
     color: #AEEFFF;
-    margin-bottom: 0.2rem;
-    letter-spacing: 2px;
+    margin: 0 0 0.25rem 0;
+    letter-spacing: 1px;
+    text-align: left;
 }
 /* Title below year, color #D1D5DB */
 .card-label {
-    font-size: 1.1rem;
-    color: #000000;
-    text-align: center;
-    margin-bottom: 0.7rem;
+    font-size: 1rem;
+    color: #020202;
+    text-align: left;
+    margin-bottom: 0.5rem;
+    font-weight: 700; /* bold the card title */
 }
 .card-image {
-    width: 90%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 0;
-    box-shadow: 0 2px 8px rgba(0,199,253,0.15);
-    margin-bottom: 0.7rem;
+    width: 100%;
+    height: auto;
+    /* Use a calculated max-height so image area scales with card width and remains fully visible */
+        max-height: calc(var(--card-w) * 0.55);
+        object-fit: contain; /* show the whole image without cropping */
+        background: #f5f7fb; /* subtle background so letterboxed areas look intentional */
+        border-radius: 0;
+        box-shadow: 0 2px 8px rgba(0,199,253,0.06);
+        margin: 0.5rem 0 0 0; /* small gap after title */
+        display: block;
 }
 .card-label {
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #020202;
-    text-align: center;
+    text-align: left;
     margin-bottom: 0.5rem;
 }
 .card-overlay {
@@ -65,13 +89,14 @@
     background: rgba(0,199,253,0.92);
     color: #fff;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
     opacity: 0;
     transition: opacity 0.3s;
     padding: 1.5rem;
     font-size: 1rem;
     text-align: left;
+    box-sizing: border-box;
 }
 .timeline-card:hover .card-overlay {
     opacity: 1;
@@ -87,7 +112,7 @@
     background: #fff;
     font-weight: 600;
     letter-spacing: 1px;
-    margin: 2rem 0 2rem 0;
+    margin: 1rem 0 1rem 0; /* reduced margins so more fits on initial viewport */
     text-align: center;
     z-index: 2;
     border-radius: 12px;
@@ -107,7 +132,7 @@ header {
     background: linear-gradient(90deg, #00C7FD 0%, #0068B5 50%, #000F4C 100%);
     padding: 4vw 2vw 2vw 2vw;
     text-align: center;
-    min-height: 48vh; /* Increased to ensure full header is visible */
+        min-height: 36vh; /* reduced so lower content shows on initial load */
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -151,13 +176,78 @@ section {
     box-sizing: border-box;
 }
 
+/* Horizontal scroll track for timeline cards */
+.timeline-track {
+    display: flex;
+    gap: var(--card-gap);
+    align-items: flex-start;
+    padding: 1rem 0; /* vertical padding only; horizontal handled by width */
+    overflow-x: auto;
+    overflow-y: hidden;
+    -ms-overflow-style: none;  /* Hide scrollbar IE and Edge */
+    scrollbar-width: none;     /* Hide scrollbar Firefox */
+    width: calc(var(--card-w) * 4 + var(--card-gap) * 3); /* fixed width showing 4 cards */
+    margin: 0 auto; /* center the track */
+    box-sizing: border-box;
+}
+.timeline-track::-webkit-scrollbar { display: none; }
+
+.timeline-track .timeline-card {
+    display: inline-flex;
+    flex: 0 0 var(--card-w);
+    width: var(--card-w);
+    height: var(--card-w); /* make cards square */
+}
+
+/* Responsive: on narrow viewports allow cards to shrink to 90vw */
+@media (max-width: 900px) {
+    .timeline-track {
+        max-width: 96vw;
+        padding: 1rem;
+    }
+    .timeline-track .timeline-card {
+        width: 90vw;
+        height: 90vw; /* keep cards square on small screens */
+        flex: 0 0 90vw;
+    }
+}
+
+/* Timeline navigation wrapper and buttons */
+.timeline-wrapper {
+    position: relative; /* allow absolute-positioned nav buttons */
+    width: 100%;
+    box-sizing: border-box;
+}
+.timeline-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.2);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+    z-index: 3;
+    border: none;
+}
+.timeline-nav { display: none !important; }
+.timeline-nav:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+.timeline-nav.prev { left: 0.5rem; }
+.timeline-nav.next { right: 0.5rem; }
+
 /* Hide scrollbar for Chrome/Safari/Opera */
 section::-webkit-scrollbar {
     display: none;
 }
 
-/* Timeline cards */
-section > div {
+/* Legacy selector renamed to avoid overriding .timeline-card styles */
+.legacy-section-div {
     display: inline-flex;
     width: min(90vw, 260px);
     height: min(90vw, 260px);
@@ -179,8 +269,8 @@ section > div {
     min-height: 180px;
 }
 
-/* Card content container */
-section > div > div.content {
+/* Card content container (legacy) */
+.legacy-section-div > div.content {
     position: relative;
     padding: 2rem 1.5rem;
     flex-grow: 1;
@@ -190,25 +280,27 @@ section > div > div.content {
     gap: 0.5rem;
 }
 
-/* Card image */
-section > div img {
+/* Card image (legacy) */
+.legacy-section-div img {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: calc(var(--card-w) * 0.55);
+    max-height: calc(var(--card-w) * 0.55);
+    object-fit: contain;
     border-radius: 0;
-    margin-top: auto;
+    margin: 0.5rem 0 0 0;
     display: block;
+    background: #f5f7fb;
 }
 
-/* Description overlay */
-section > div .description {
+/* Description overlay (legacy) */
+.legacy-section-div .description {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 199, 253, 0.95);
-    backdrop-filter: blur(8px);
+        padding: 1.25vw 1.5vw 1.5vw 1.5vw; /* tighter padding to show more content */
     opacity: 0;
     transition: all 0.4s ease;
     display: flex;
@@ -217,7 +309,7 @@ section > div .description {
     padding: 2rem;
     overflow-y: auto;
     /* Hide scrollbar for Chrome/Safari/Opera */
-    &::-webkit-scrollbar {
+    .legacy-section-div .description::-webkit-scrollbar {
         display: none;
     }
     /* Hide scrollbar for IE, Edge and Firefox */
@@ -225,12 +317,12 @@ section > div .description {
     scrollbar-width: none;
 }
 
-section > div:hover .description {
+.legacy-section-div:hover .description {
     opacity: 1;
 }
 
-/* Description text container */
-section > div .description p {
+/* Description text container (legacy) */
+.legacy-section-div .description p {
     max-height: 100%;
     margin: 0;
     padding: 0;
@@ -243,8 +335,8 @@ section > div .description p {
     overflow: hidden;
     word-wrap: break-word;
 }
-/* Description overlay */
-section > div .description {
+/* Description overlay (legacy) */
+.legacy-section-div .description {
     position: absolute;
     top: 0;
     left: 0;
@@ -263,13 +355,13 @@ section > div .description {
     align-items: flex-start;
 }
 
-section > div:hover .description {
+.legacy-section-div:hover .description {
     opacity: 1;
     visibility: visible;
 }
 
-/* Description text container */
-section > div .description p {
+/* Description text container (legacy) */
+.legacy-section-div .description p {
     width: 100%;
     height: auto;
     margin: 0;
@@ -291,24 +383,20 @@ section > div .description p {
     scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 }
 
-/* Custom scrollbar for Webkit browsers */
-section > div .description p::-webkit-scrollbar {
+/* Custom scrollbar for Webkit browsers (legacy) */
+.legacy-section-div .description p::-webkit-scrollbar {
     width: 4px;
 }
 
-section > div .description p::-webkit-scrollbar-track {
+.legacy-section-div .description p::-webkit-scrollbar-track {
     background: transparent;
 }
 
-section > div .description p::-webkit-scrollbar-thumb {
+.legacy-section-div .description p::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 2px;
 }
-    line-height: 1.6;
-    color: white;
-    margin: 0;
-    text-align: center;
-}
+
 
 /* Footer text */
 body > p {
@@ -404,7 +492,10 @@ header p {
     min-height: 140px;
     margin-right: 3vw;
   }
-  .card-image {
-    height: 28vw;
-  }
+    .card-image {
+           height: 50vw;
+           max-height: 50vw;
+           object-fit: contain;
+           margin: 0.5rem 0 0 0;
+    }
 }

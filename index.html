@@ -30,6 +30,9 @@
 
   <!-- Timeline Cards Section -->
   <section>
+    <div class="timeline-wrapper">
+      <button class="timeline-nav prev" aria-label="Previous">◀</button>
+      <div class="timeline-track">
 
     <!-- Card 1: 1968 -->
     <div class="timeline-card">
@@ -78,7 +81,113 @@
         <p>Intel introduces the 386 processor with 32-bit architecture, ushering in a new era of performance and multitasking for personal computers.</p>
       </div>
     </div>
+
+    <!-- Hidden/scrollable cards: 5-8 -->
+    <!-- Card 5: 2006 -->
+    <div class="timeline-card">
+      <div class="card-content">
+        <div class="card-year">2006</div>
+        <div class="card-label">Peak GHG Emissions</div>
+        <img src="img/5.jpg" alt="Peak GHG Emissions" class="card-image" />
+      </div>
+      <div class="card-overlay">
+        <p>This year marks Intel's highest annual greenhouse gas emissions for operations. Over subsequent years, Intel invests heavily in chemical abatement, renewable energy, and energy-efficient manufacturing to reverse this trend.</p>
+      </div>
+    </div>
+
+    <!-- Card 6: 2020 -->
+    <div class="timeline-card">
+      <div class="card-content">
+        <div class="card-year">2020</div>
+        <div class="card-label">RISE Strategy</div>
+        <img src="img/6.jpg" alt="RISE Strategy" class="card-image" />
+      </div>
+      <div class="card-overlay">
+        <p>Intel launches its RISE (Responsible, Inclusive, Sustainable, Enabling) strategy and 2030 goals, aiming to drive industry-wide progress on climate action, water stewardship, and waste reduction.</p>
+      </div>
+    </div>
+
+    <!-- Card 7: 2022 -->
+    <div class="timeline-card">
+      <div class="card-content">
+        <div class="card-year">2022</div>
+        <div class="card-label">Net-Zero By 2040</div>
+  <img src="img/7.jpg" alt="Net-Zero By 2040" class="card-image card-image-large" />
+      </div>
+      <div class="card-overlay">
+        <p>Intel announces its commitment to achieve net-zero greenhouse gas emissions (Scope 1 and 2) across its global operations by 2040, building on years of environmental initiatives.</p>
+      </div>
+    </div>
+
+    <!-- Card 8: 2023 -->
+    <div class="timeline-card">
+      <div class="card-content">
+        <div class="card-year">2023</div>
+        <div class="card-label">Renewable Electricity</div>
+        <img src="img/8.jpg" alt="Renewable Electricity" class="card-image" />
+      </div>
+      <div class="card-overlay">
+        <p>The company achieves 99% renewable electricity usage worldwide, helping to drastically lower carbon emissions and driving progress toward Intel's long-term sustainability goals.</p>
+      </div>
+    </div>
+
+      </div>
+      <button class="timeline-nav next" aria-label="Next">▶</button>
+    </div>
   </section>
+
   <div class="timeline-prompt">Scroll to view timeline | Hover over cards to learn more!</div>
+
+  <script>
+    (function(){
+      const track = document.querySelector('.timeline-track');
+      const prev = document.querySelector('.timeline-nav.prev');
+      const next = document.querySelector('.timeline-nav.next');
+      if(!track || !prev || !next) return;
+
+      const getScrollAmount = () => {
+        const root = getComputedStyle(document.documentElement);
+        const cardW = root.getPropertyValue('--card-w') || '260px';
+        const gap = root.getPropertyValue('--card-gap') || '32px';
+        const w = parseInt(cardW.trim(), 10) || 260;
+        const g = parseInt(gap.trim(), 10) || 32;
+        return w + g;
+      };
+
+      const updateButtons = () => {
+        prev.disabled = track.scrollLeft <= 0;
+        next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+      };
+
+      prev.addEventListener('click', () => {
+        track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+        setTimeout(updateButtons, 350);
+      });
+
+      next.addEventListener('click', () => {
+        track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        setTimeout(updateButtons, 350);
+      });
+
+      track.addEventListener('scroll', () => window.requestAnimationFrame(updateButtons));
+
+      updateButtons();
+      // Invert wheel behavior while hovering the timeline: wheel up -> scroll right, wheel down -> scroll left
+      track.addEventListener('wheel', (e) => {
+        // Only handle vertical wheel deltas
+        if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+        e.preventDefault();
+        // Inverted: deltaY positive = wheel down = scroll RIGHT; negative = wheel up = scroll LEFT
+        const direction = e.deltaY > 0 ? 1 : -1;
+        // Scroll a fraction of card width for smooth control
+        const root = getComputedStyle(document.documentElement);
+        const cardW = parseInt(root.getPropertyValue('--card-w').trim(), 10) || 260;
+        const gap = parseInt(root.getPropertyValue('--card-gap').trim(), 10) || 32;
+        const amount = (cardW + gap) * 0.35 * direction; // partial card for finer control
+        track.scrollBy({ left: amount, behavior: 'auto' });
+        setTimeout(updateButtons, 50);
+      }, { passive: false });
+    })();
+  </script>
 </body>
 </html>

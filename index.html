@@ -5,6 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Intel: Sustainability Through the Ages</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Three-column section enhancements */
+    .focus-area-row {
+      display: flex;
+      gap: 2rem;
+    }
+    @media (max-width: 768px) {
+      .focus-area-row {
+        flex-direction: column;
+      }
+      .col-md-4 {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+    }
+    .focus-area-block {
+      background: #f5f8fa;
+      border-radius: 12px;
+      padding: 2rem 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      transition: background 0.3s;
+    }
+    .focus-area-block h3 {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #003366;
+    }
+    .focus-area-block p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #222;
+    }
+    .focus-area-block .btn {
+      background: #0071C5;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1.25rem;
+      font-weight: 500;
+      margin-top: 1rem;
+      transition: background 0.3s, text-decoration 0.3s;
+    }
+    .focus-area-block .btn:hover {
+      background: #005fa3;
+      text-decoration: underline;
+    }
+    .focus-area-block:hover {
+      background: #e3f2fd;
+    }
+  </style>
 </head>
 <body>
 
@@ -140,56 +190,53 @@
 
   <!-- 3-Column Content Section -->
   <section>
-    <div>
-      
-      <!-- Column 1 -->
-      <div>
-        <h2>RISE Strategy</h2>
-          <span class="mb-2" aria-hidden="true" style="font-size:2rem;">
-            <!-- Bar chart icon for strategy -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16"><path d="M0 0h1v15h15v1H0V0zm2 13V6h2v7H2zm4 0V1h2v12H6zm4 0V9h2v4h-2z"/></svg>
-          </span>
-          <p>
-            Under its RISE (Responsible, Inclusive, Sustainable, Enabling) strategy, 
-            Intel sets ambitious 2030 goals, including driving industry-wide 
-            progress on climate action, water stewardship, and waste reduction.
-          </p>
-        <!-- Learn More Button -->
-        <a href="#">Learn More</a>
-      </div>
-
-      <!-- Column 2 -->
-      <div>
-        <h2>Commitment</h2>
-          <span class="mb-2" aria-hidden="true" style="font-size:2rem;">
-            <!-- Shield check icon for commitment -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-shield-check" viewBox="0 0 16 16"><path d="M5.072 1.28A.5.5 0 0 1 5.5 1h5a.5.5 0 0 1 .428.28l2.5 5A.5.5 0 0 1 13.5 7H2.5a.5.5 0 0 1-.428-.72l2.5-5zM6.5 2v4h3V2h-3zm-2.5 6a.5.5 0 0 1 .5.5v5.5a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V8.5a.5.5 0 0 1 1 0v5.5A1.5 1.5 0 0 1 12 15H4a1.5 1.5 0 0 1-1.5-1.5V8.5a.5.5 0 0 1 .5-.5z"/><path d="M10.854 10.146a.5.5 0 0 0-.708 0L8.5 11.793l-.646-.647a.5.5 0 0 0-.708.708l1 1a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/></svg>
-          </span>
-          <p>
-            In 2022, Intel pledged to achieve net-zero greenhouse gas emissions 
-            (Scope 1 and 2) by 2040. This commitment builds on decades of 
-            environmental initiatives and partnerships across the semiconductor 
-            industry.
-          </p>
-        <!-- Learn More Button -->
-        <a href="#">Learn More</a>
-      </div>
-
-      <!-- Column 3 -->
-      <div>
-        <h2>Water &amp; Waste</h2>
-          <span class="mb-2" aria-hidden="true" style="font-size:2rem;">
-            <!-- Droplet icon for water & waste -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-droplet" viewBox="0 0 16 16"><path d="M8.5 1.5a.5.5 0 0 0-1 0v.634C5.07 4.07 2.5 7.5 2.5 10a5.5 5.5 0 0 0 11 0c0-2.5-2.57-5.93-5-7.866V1.5zM8 15a4.5 4.5 0 0 1-4.5-4.5c0-2.07 2.07-5.07 4.5-7.134C10.43 5.43 12.5 8.43 12.5 10.5A4.5 4.5 0 0 1 8 15z"/></svg>
-          </span>
-          <p>
-            Intel conserves billions of gallons of water annually and 
-            collaborates with local communities to restore watersheds.
-            Intel also upcycles and recycles materials to reduce waste and 
-            advance a circular economy.
-          </p>
-        <!-- Learn More Button -->
-        <a href="#">Learn More</a>
+      <div class="container my-5">
+        <div class="focus-area-row">
+          <!-- Column 1 -->
+          <div class="focus-area-block col-md-4 d-flex flex-column align-items-center text-center">
+            <span class="mb-2" aria-hidden="true" style="font-size:2rem;">
+              <!-- Bar chart icon for strategy -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16"><path d="M0 0h1v15h15v1H0V0zm2 13V6h2v7H2zm4 0V1h2v12H6zm4 0V9h2v4h-2z"/></svg>
+            </span>
+            <h3 class="mb-2">RISE Strategy</h3>
+            <p>
+              Under its RISE (Responsible, Inclusive, Sustainable, Enabling) strategy, 
+              Intel sets ambitious 2030 goals, including driving industry-wide 
+              progress on climate action, water stewardship, and waste reduction.
+            </p>
+            <a href="#" class="btn">Learn More</a>
+          </div>
+          <!-- Column 2 -->
+          <div class="focus-area-block col-md-4 d-flex flex-column align-items-center text-center">
+            <span class="mb-2" aria-hidden="true" style="font-size:2rem;">
+              <!-- Shield check icon for commitment -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-shield-check" viewBox="0 0 16 16"><path d="M5.072 1.28A.5.5 0 0 1 5.5 1h5a.5.5 0 0 1 .428.28l2.5 5A.5.5 0 0 1 13.5 7H2.5a.5.5 0 0 1-.428-.72l2.5-5zM6.5 2v4h3V2h-3zm-2.5 6a.5.5 0 0 1 .5.5v5.5a.5.5 0 0 0 .5.5h6a.5.5 0 0 0 .5-.5V8.5a.5.5 0 0 1 1 0v5.5A1.5 1.5 0 0 1 12 15H4a1.5 1.5 0 0 1-1.5-1.5V8.5a.5.5 0 0 1 .5-.5z"/><path d="M10.854 10.146a.5.5 0 0 0-.708 0L8.5 11.793l-.646-.647a.5.5 0 0 0-.708.708l1 1a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0 0-.708z"/></svg>
+            </span>
+            <h3 class="mb-2">Commitment</h3>
+            <p>
+              In 2022, Intel pledged to achieve net-zero greenhouse gas emissions 
+              (Scope 1 and 2) by 2040. This commitment builds on decades of 
+              environmental initiatives and partnerships across the semiconductor 
+              industry.
+            </p>
+            <a href="#" class="btn">Learn More</a>
+          </div>
+          <!-- Column 3 -->
+          <div class="focus-area-block col-md-4 d-flex flex-column align-items-center text-center">
+            <span class="mb-2" aria-hidden="true" style="font-size:2rem;">
+              <!-- Droplet icon for water & waste -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-droplet" viewBox="0 0 16 16"><path d="M8.5 1.5a.5.5 0 0 0-1 0v.634C5.07 4.07 2.5 7.5 2.5 10a5.5 5.5 0 0 0 11 0c0-2.5-2.57-5.93-5-7.866V1.5zM8 15a4.5 4.5 0 0 1-4.5-4.5c0-2.07 2.07-5.07 4.5-7.134C10.43 5.43 12.5 8.43 12.5 10.5A4.5 4.5 0 0 1 8 15z"/></svg>
+            </span>
+            <h3 class="mb-2">Water &amp; Waste</h3>
+            <p>
+              Intel conserves billions of gallons of water annually and 
+              collaborates with local communities to restore watersheds.
+              Intel also upcycles and recycles materials to reduce waste and 
+              advance a circular economy.
+            </p>
+            <a href="#" class="btn">Learn More</a>
+          </div>
+        </div>
       </div>
 
     </div>
